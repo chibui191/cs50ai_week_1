@@ -113,7 +113,6 @@ class Sentence():
                 self.mines.add(cell)
         return self.mines     
 
-
     def known_safes(self):
         """
         Returns the set of all cells in self.cells known to be safe.
@@ -122,7 +121,6 @@ class Sentence():
             for cell in self.cells:
                 self.safes.add(cell)
         return self.safes
-
 
     def mark_mine(self, cell):
         """
@@ -133,7 +131,6 @@ class Sentence():
             self.mines.add(cell)
             self.cells.remove(cell)
             self.count -= 1
-
 
     def mark_safe(self, cell):
         """
@@ -206,7 +203,6 @@ class MinesweeperAI():
         # get neighboring cells:
         i, j = cell
         neighboring_cells = set()
-
         for x in range(i - 1, i + 2):
             for y in range(j - 1, j + 2):
                 if (0 <= x < self.height) and (0 <= y < self.width) and ((x, y) != cell):
@@ -232,7 +228,6 @@ class MinesweeperAI():
                     new_count = sentence1.count - sentence2.count
                     self.knowledge.append(Sentence(new_cells_set, new_count))
 
-
     def make_safe_move(self):
         """
         Returns a safe cell to choose on the Minesweeper board.
@@ -243,10 +238,7 @@ class MinesweeperAI():
         and self.moves_made, but should not modify any of those values.
         """
         safe_moves = list(self.safes - self.moves_made)
-        if len(safe_moves) >= 1:
-            return random.choice(safe_moves)
-        else:
-            return None
+        return random.choice(safe_moves) if len(safe_moves) >= 1 else None
 
     def make_random_move(self):
         """
@@ -260,7 +252,4 @@ class MinesweeperAI():
             for j in range(self.width):
                 if (not (i, j) in self.moves_made) and (not (i, j) in self.mines):
                     random_moves.append((i, j))
-        if len(random_moves) >= 1:
-            return random.choice(random_moves)
-        else:
-            return None
+        return random.choice(random_moves) if len(random_moves) >= 1 else None
