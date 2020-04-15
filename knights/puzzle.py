@@ -11,11 +11,7 @@ CKnave = Symbol("C is a Knave")
 
 # Puzzle 0
 # A says "I am both a knight and a knave."
-knowledge0 = And(
-    # AKnight or AKnave but not both
-    And(Or(AKnight, AKnave), 
-        Not(And(AKnight, AKnave))
-    ),
+knowledge0 = And(    
     # Biconditional AKnight and ASaid
     Biconditional(
         AKnight, 
@@ -33,14 +29,7 @@ knowledge0 = And(
 # B says nothing.
 knowledge1 = And(
     # One can be a Knight or a Knave but not both
-    And(
-        Or(AKnight, AKnave), 
-        Not(And(AKnight, AKnave))
-    ),
-    And(
-        Or(BKnight, BKnave), 
-        Not(And(BKnight, BKnave))
-    ),
+    
     # Biconditional AKnight and ASaid
     Biconditional(
         AKnight, 
@@ -59,15 +48,6 @@ knowledge1 = And(
 # ASaid = Or(And(AKnight, BKnight), And(AKnave, BKnave))
 # BSaid = Or(And(AKnight, BKnave), And(AKnave, BKnight))
 knowledge2 = And(
-    # One can be a Knight or a Knave but not both
-    And(
-        Or(AKnight, AKnave), 
-        Not(And(AKnight, AKnave))
-    ),
-    And(
-        Or(BKnight, BKnave), 
-        Not(And(BKnight, BKnave))
-    ),
     # Biconditional AKnight and ASaid
     Biconditional(
         AKnight, 
@@ -107,26 +87,9 @@ knowledge2 = And(
 # B says "A said 'I am a knave'."
 # B says "C is a knave."
 # C says "A is a knight."
-# ASaid = AKnight OR ASaid = AKnave
-# Or(And(Biconditional(AKnight, AKnight), Biconditional(Not(AKnave), AKnight), And(Biconditional(AKnight, AKnave), Biconditional(Not(AKnave), AKnave)))
 # BSaid1 = And(Biconditional(AKnight, AKnave), Biconditional(Not(AKnave), AKnave))
 # BSaid2 = CKnave
-# Biconditional(BSaid1, BSaid2) 
-# CSaid = AKnight
 knowledge3 = And(
-    # One can either be a Knight or a Knave but not both
-    And(
-        Or(AKnight, AKnave), 
-        Not(And(AKnight, AKnave))
-    ),
-    And(
-        Or(BKnight, BKnave), 
-        Not(And(BKnight, BKnave))
-    ),
-    And(
-        Or(CKnight, CKnave), 
-        Not(And(CKnight, CKnave))
-    ),
     # ASaid = AKnight OR ASaid = AKnave
     Or(
         And(
@@ -169,8 +132,25 @@ knowledge3 = And(
     # Biconditional(CKnight, CSaid)
     Biconditional(CKnight, AKnight),
     # Biconditional(Not(CKnave), CSaid)
-    Biconditional(Not(CKnave), AKnight)
+    Biconditional(Not(CKnave), AKnight),
 )
+
+for knowledge in [knowledge0, knowledge1, knowledge2, knowledge3]:
+    knowledge.add(And(
+        # One can either be a Knight or a Knave but not both
+        And(
+            Or(AKnight, AKnave), 
+            Not(And(AKnight, AKnave))
+        ),
+        And(
+            Or(BKnight, BKnave), 
+            Not(And(BKnight, BKnave))
+        ),
+        And(
+            Or(CKnight, CKnave), 
+            Not(And(CKnight, CKnave))
+        ),
+    ))
 
 
 def main():
