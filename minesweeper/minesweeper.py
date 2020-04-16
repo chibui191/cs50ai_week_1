@@ -107,11 +107,10 @@ class Sentence():
         """
         Returns the set of all cells in self.cells known to be mines.
         """
-        # if number of cells in set equals count
         if len(self.cells) == self.count:
             for cell in self.cells:
-                self.mines.add(cell)
-        return self.mines     
+                self.mines.add(cell) 
+        return self.mines   
 
     def known_safes(self):
         """
@@ -212,12 +211,10 @@ class MinesweeperAI():
         # 4) mark any additional cells as safe or as mines
         # if it can be concluded based on the AI's knowledge base
         for sentence in self.knowledge:
-            if sentence.count == 0:
-                for cell in sentence.cells:
-                    self.safes.add(cell)
-            elif len(sentence.cells) == sentence.count:
-                for cell in sentence.cells:
-                    self.mines.add(cell)
+            for cell in sentence.known_safes():
+                self.safes.add(cell)
+            for cell in sentence.known_mines():
+                self.mines.add(cell)
 
         # 5) add any new sentences to the AI's knowledge base
         # if they can be inferred from existing knowledge
