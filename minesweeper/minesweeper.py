@@ -228,8 +228,7 @@ class MinesweeperAI():
                         self.knowledge.append(new_sentence)
                 else: 
                     continue
-
-        print(f"Safe Cells: {self.safes}")
+                
         print(f"Mine Cells: {self.mines}") 
 
     def make_safe_move(self):
